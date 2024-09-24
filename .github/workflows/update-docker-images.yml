@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # update Docker images every week
-    - cron: '0 12 * * 0'
+    - cron: "0 12 * * 0"
 
 jobs:
   build:
@@ -15,6 +15,9 @@ jobs:
           - NAME: bionic x86_64
             ARCH: x86_64
             DIST: bionic
+          - NAME: jammy x86_64
+            ARCH: x86_64
+            DIST: jammy
           - NAME: bionic i386
             ARCH: i386
             DIST: bionic

@@ -11,6 +11,9 @@ jobs:
           - NAME: bionic x86_64
             ARCH: x86_64
             DIST: bionic
+          - NAME: jammy x86_64
+            ARCH: x86_64
+            DIST: jammy
           - NAME: bionic i386
             ARCH: i386
             DIST: bionic
@@ -38,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       - name: Set up QEMU integration for Docker
         run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - name: Build in Docker
@@ -51,10 +54,10 @@ jobs:
         with:
           name: build
           path: |
-              appimagelauncher*.deb*
-              appimagelauncher*.rpm*
-              appimagelauncher*.tar*
-              appimagelauncher-lite-*.AppImage*
+            appimagelauncher*.deb*
+            appimagelauncher*.rpm*
+            appimagelauncher*.tar*
+            appimagelauncher-lite-*.AppImage*
 
   upload:
     name: Create release and upload artifacts
@@ -73,7 +76,7 @@ jobs:
           WEBDAV_USER: ${{ secrets.WEBDAV_USER }}
           WEBDAV_PASSWORD: ${{ secrets.WEBDAV_PASSWORD }}
         run: |
-            env | grep GITHUB_ | grep -v GITHUB_TOKEN
-            wget -q https://github.com/TheAssassin/pyuploadtool/releases/download/continuous/pyuploadtool-x86_64.AppImage
-            chmod +x pyuploadtool-x86_64.AppImage
-            ./pyuploadtool-x86_64.AppImage **/appimagelauncher*.{deb,rpm,tar*,AppImage*}
+          env | grep GITHUB_ | grep -v GITHUB_TOKEN
+          wget -q https://github.com/TheAssassin/pyuploadtool/releases/download/continuous/pyuploadtool-x86_64.AppImage
+          chmod +x pyuploadtool-x86_64.AppImage
+          ./pyuploadtool-x86_64.AppImage **/appimagelauncher*.{deb,rpm,tar*,AppImage*}
